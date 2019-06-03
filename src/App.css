@@ -1,3 +1,8 @@
+@font-face {
+    font-family: SegoeImported;
+    src: ('./fonts/Segoe UI.ttf');
+}
+
 :root {
     
     --header-height: 48px;
@@ -7,10 +12,10 @@
 }
 * {
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'SegoeImported','Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Layout Grid */
+/* Layout em Grid */
 
 .app {
     margin: 0px;
@@ -29,7 +34,6 @@
         "header header"
         "menu search"
         "menu content"
-        "footer footer"
         ;
     height: 100vh;
     background-color: #eaeaea;
@@ -37,10 +41,12 @@
 
 header.header {
     grid-area: header;
+    background-color: #0063B1;
 }
 
 .search {
     grid-area: search;
+    background-color: #f9f9f9;
 }
 
 aside.menu-area {

@@ -29,6 +29,10 @@ class SimplePopover extends React.Component {
         });
     };
 
+    choseTag = (id) => {
+        console.log(id)
+    }
+
     render() {
         const props = this.props
         const { anchorEl } = this.state;
@@ -39,8 +43,6 @@ class SimplePopover extends React.Component {
                 <div>
                     <IconButton
                         aria-owns={open ? 'simple-popper' : undefined}
-                        aria-haspopup="true"
-                        variant="contained"
                         onClick={this.handleClick}>
                         <p className="icon-tag"><i className="fa fa-tags" /></p>
                     </IconButton>
@@ -65,7 +67,7 @@ class SimplePopover extends React.Component {
                                     <div key={tag.id} className="tags" style={{backgroundColor: tag.background}}>
                                         <Button className="btnTag" onClick={() => {
                                             this.handleClose()
-                                            props.setTag(tag.id)
+                                            this.choseTag(tag.id)
                                         }}>
                                             <span style={{ color: tag.color }} >
                                                 {tag.name}

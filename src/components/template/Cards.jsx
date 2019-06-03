@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './Cards.css'
 import PopOver from '../template/PopOver'
 import dbData from '../../data/db.json'
+import Nav from './Nav'
 
 export default class Cards extends Component {
     constructor(props) {
@@ -14,7 +15,6 @@ export default class Cards extends Component {
             usuario: [],
             clickTag: '',
         }
-        console.log(this.state)
     }
 
     
@@ -24,12 +24,6 @@ export default class Cards extends Component {
         })
         console.log(this.state.clickTag)
     }
-
-    // this.setState({
-    //     cards: dbData.cards
-    // })
-    // console.log(this.state)
-
 
     setTag = (id) => {
         return (checkIdTag) => {
@@ -63,8 +57,6 @@ export default class Cards extends Component {
                                     <div className="row">
                                         <i className="name fa fa-plus-circle text-success mt-1" /><td className="ml-2">{card.partes.ativa.name}</td>
                                         <i className="name fa fa-minus-circle text-danger ml-2 mt-1" /><td className="ml-2">{card.partes.passiva.name}</td>
-                                        {/* <div>{card.length}</div> */}
-                                        {/* <div>{console.log(card.length)}</div> */}
                                     </div>
 
                                     <div className="row">
@@ -93,7 +85,7 @@ export default class Cards extends Component {
                                 <div className="folder column mid col-md-3">
                                     <i className="fa fa-folder-open"></i>
                                     Abrir Pasta
-                    </div>
+                                </div>
 
                                 <div className="add-tag column right col-md-3">
                                     <div className="row">
@@ -102,7 +94,7 @@ export default class Cards extends Component {
                                              addTag={this.setTag(card.id)}
                                             />
                                         </div>
-
+ç
 
                                         <div className="ml-2">
                                             {card.tag.map(idTag => {
@@ -139,6 +131,7 @@ export default class Cards extends Component {
 
                 <div>
                     {this.renderCards()}
+                {/* <Nav addTag={this.addTag}></Nav> */}
                 </div>
 
         )
