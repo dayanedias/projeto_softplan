@@ -1,0 +1,21 @@
+aside.menu-area {
+    padding: 12px 15px;
+    font-size: 14px;
+    text-decoration: none;
+    color: #808080;
+    font-weight: 300;
+}
+
+.newTag {
+    background-color: #f4f4f4;
+    border-style: none;
+}
+
+.count-tag {
+    text-align: right;
+    margin-left: 10px;
+}
+
+/* .aside a:hover{
+    background: #87CEFA 0%
+} */

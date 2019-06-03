@@ -1,0 +1,45 @@
+.cards-row {
+    padding-top: 15px;
+    padding-left: 15px;
+
+}
+
+.row {
+    padding: 0 25px 0 25px; 
+}
+
+.column {
+    float: left;
+    padding: 15px 15px 15px 15px;
+    background-color: #ffffff;
+  }
+  
+  .left  {
+    width: 50%;
+
+  }
+  
+  .middle, .right  {
+    width: 25%;
+    float: center;
+  }
+
+  .column .i {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .tags {
+      padding-top: 3px;
+      padding-bottom: 3px;
+      padding-left: 6px;
+      padding-right: 6px;
+  }
+
+  .folder{
+    text-align: left;
+    padding-top: 40px;
+  }
+
+  .add-tag {
+    text-align: left;
+  }

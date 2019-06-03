@@ -1,0 +1,23 @@
+.search {
+    background-color: #f9f9f9;
+    padding: 5px 10px;
+    white-space: nowrap;
+    border-style: none;
+}
+
+.input-search {
+    line-height: 1;
+    font-size: 15px;
+    height: auto;
+    width: 100%;
+    padding-left: 20px;
+    background-color: #f9f9f9;
+    padding: 5px 10px;
+    white-space: nowrap;
+    border-style: none;
+  }
+
+  .icon {
+      border-style: none;
+      color: #f9f9f9;
+  }

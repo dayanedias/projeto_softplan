@@ -1,0 +1,53 @@
+:root {
+    
+    --header-height: 48px;
+    --search-height: 48px;
+    --aside-width: 225px;
+
+}
+* {
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Layout Grid */
+
+.app {
+    margin: 0px;
+    display: grid;
+    grid-template-columns: 
+        var(--aside-width) 
+        1fr
+        ;
+
+    grid-template-rows: 
+        var(--header-height)
+        var(--search-height)
+        1fr;
+
+    grid-template-areas:
+        "header header"
+        "menu search"
+        "menu content"
+        "footer footer"
+        ;
+    height: 100vh;
+    background-color: #eaeaea;
+}
+
+header.header {
+    grid-area: header;
+}
+
+.search {
+    grid-area: search;
+}
+
+aside.menu-area {
+    grid-area: menu;
+    background-color: #f4f4f4
+}
+
+main.content {
+    grid-area: content;
+}
