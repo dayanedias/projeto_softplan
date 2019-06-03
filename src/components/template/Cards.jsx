@@ -5,6 +5,7 @@ import dbData from '../../data/db.json'
 import Nav from './Nav'
 
 export default class Cards extends Component {
+
     constructor(props) {
         super(props)
 
@@ -26,10 +27,15 @@ export default class Cards extends Component {
     }
 
     setTag = (id) => {
-        console.log(id)
+        
     }
 
     renderCards() {
+
+        const props = this.props
+
+        console.log(props)
+
         return (
             <div>
                 {dbData.cards.map(card => {
@@ -73,8 +79,7 @@ export default class Cards extends Component {
                                 <div className="add-tag column right col-md-3">
                                     <div className="row">
                                         <div>
-                                            <PopOver tags={dbData.tags}
-                                             addTag={this.setTag(card.id)}
+                                            <PopOver tags={dbData.tags}                                     
                                             />
                                         </div>
 

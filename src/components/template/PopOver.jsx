@@ -5,12 +5,6 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Popover from '@material-ui/core/Popover';
 
-const styles = theme => ({
-    typography: {
-        margin: theme.spacing(2),
-    },
-});
-
 class SimplePopover extends React.Component {
     state = {
         anchorEl: null,
@@ -29,9 +23,6 @@ class SimplePopover extends React.Component {
     };
 
     choseTag = (id) => {
-
-        console.log(id)
-
     }
 
     render() {
