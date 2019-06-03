@@ -1,7 +1,6 @@
 import React from 'react';
 import './PopOver.css'
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Popover from '@material-ui/core/Popover';
@@ -30,7 +29,9 @@ class SimplePopover extends React.Component {
     };
 
     choseTag = (id) => {
+
         console.log(id)
+
     }
 
     render() {
@@ -64,7 +65,7 @@ class SimplePopover extends React.Component {
                             <td className="listTag-title">Etiquetar Como:</td>
                             {props.tags.map(tag => {
                                 return (
-                                    <div key={tag.id} className="tags" style={{backgroundColor: tag.background}}>
+                                    <div key={tag.id} className="tags" style={{ backgroundColor: tag.background }}>
                                         <Button className="btnTag" onClick={() => {
                                             this.handleClose()
                                             this.choseTag(tag.id)
@@ -89,4 +90,4 @@ SimplePopover.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(SimplePopover);
+export default SimplePopover;

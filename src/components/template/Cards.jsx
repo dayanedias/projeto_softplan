@@ -26,24 +26,7 @@ export default class Cards extends Component {
     }
 
     setTag = (id) => {
-        return (checkIdTag) => {
-
-            const updateCards = this.state.cards.map((card) => {
-                if (card.id === id) {
-                    return {
-                        ...card,
-                        tag: [...card.tag, checkIdTag]
-                    };
-                } else {
-                    return card;
-                }
-            });
-            console.log(this.state)
-            this.setState({
-                cards: updateCards
-            })
-            console.log(this.state.cards)
-        }
+        console.log(id)
     }
 
     renderCards() {
@@ -94,7 +77,6 @@ export default class Cards extends Component {
                                              addTag={this.setTag(card.id)}
                                             />
                                         </div>
-ç
 
                                         <div className="ml-2">
                                             {card.tag.map(idTag => {
