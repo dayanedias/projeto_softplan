@@ -69,8 +69,6 @@ export default class Cards extends Component {
 
        const props = this.state
 
-      
-
         return (
             <div>
                 {this.state.cards.map(card => {
@@ -157,6 +155,8 @@ export default class Cards extends Component {
                 <Nav tags={this.state.tags} 
                 cards={this.state.cards} 
                 onNewTag={this.newTag}/>
+
+                {/* <main> {this.renderCards() </main> */}
 
             </React.Fragment>
 

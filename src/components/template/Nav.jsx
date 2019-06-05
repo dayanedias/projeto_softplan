@@ -68,7 +68,7 @@ class Nav extends Component {
                                 Etiquetas
                             </div>
 
-                           {/* {props.tags.map(tag => {
+                           {props.tags.map(tag => {
                                 return (
                                     <div className="menu-iten pt-3">
                                         <div key={tag.id} className="row">
@@ -81,7 +81,7 @@ class Nav extends Component {
                                         </div>
                                     </div>
                                 )
-                            })} */}
+                            })}
 
                             <form onSubmit={(e) => {
                                 e.preventDefault()
