@@ -7,7 +7,7 @@ import Nav from './Nav'
 export default class Cards extends Component {
 
     constructor(props) {
-        super(props);
+        super(props)
         // debugger
 
         this.inicialState = {
@@ -65,15 +65,15 @@ export default class Cards extends Component {
         })
     }
 
-    render() {
+    renderCards() {
 
        const props = this.state
 
-        console.log(props)
+      
 
         return (
             <div>
-                {props.cards.map(card => {
+                {this.state.cards.map(card => {
                     return (
                         <div className="cards-row" key={card.id}>
                             <div className="row">
@@ -114,7 +114,7 @@ export default class Cards extends Component {
                                 <div className="add-tag column right col-md-3">
                                     <div className="row">
                                         <div>
-                                            <PopOver tags={props.tags} includeTag={card.id} />
+                                            <PopOver tags={this.state.tags} includeTag={card.id} />
                                         </div>
 
                                         <div className="ml-2">
@@ -141,23 +141,25 @@ export default class Cards extends Component {
                     )
                 })
                 }
-                <Nav tags={this.state.tags} />
+               
             </div>
         )
 
 
     }
 
-    // render() {
-    //     // debugger
-    //     return (
+    render() {
+        // debugger
+        return (
+            <React.Fragment>
+                {this.renderCards()}
 
-    //         <div>
-    //             {this.renderCards()}
+                <Nav tags={this.state.tags} 
+                cards={this.state.cards} 
+                onNewTag={this.newTag}/>
 
-    //             {/* <Nav newTag={this.newTag}></Nav> */}
-    //         </div>
+            </React.Fragment>
 
-    //     )
-    // }
+        )
+    }
 }

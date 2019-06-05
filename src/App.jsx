@@ -12,9 +12,10 @@ export default props =>
     <div className="app">
         
         <Header title="APP">
-                <Cards />
         </Header>
-        <Search />
+        <Search >
+            <Cards />
+        </Search>
         <Nav />
         
     </div>

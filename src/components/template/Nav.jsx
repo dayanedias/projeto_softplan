@@ -16,27 +16,27 @@ class Nav extends Component {
     }
 
     countTags = (idCard) => {
-        const count = dbData.cards.filter(card => {
+        const count = this.props.cards.filter(card => {
             return card.tag.includes(parseInt(idCard))
         })
         return count.length
     }
 
-    handleSubmit(e) {
-        const addTag = {
+    // handleSubmit(e) {
+    //     const addTag = {
 
-            id: this.state.tags.length + 1,
-            name: e,
-            color: "#FFF",
-            background: "#49bdce",
-        }
+    //         id: this.state.tags.length + 1,
+    //         name: e,
+    //         color: "#FFF",
+    //         background: "#49bdce",
+    //     }
 
-        const newTags = this.state.tags.concat(addTag)
+    //     const newTags = this.state.tags.concat(addTag)
 
-        this.setState({
-            tags: newTags
-        })
-    }
+    //     this.setState({
+    //         tags: newTags
+    //     })
+    // }
 
     // generateColor() {
     //     return '#' + Math.random().toString(16).substr(-6);
@@ -46,6 +46,8 @@ class Nav extends Component {
 
         const props = this.props
 
+        console.log("Nav",props)
+
         return (
             <React.Fragment>
                 <aside className="menu-area">
@@ -53,21 +55,20 @@ class Nav extends Component {
                         <div className="menu-iten">
                             <strong>Processos</strong>
                        
-                            {/* <div className="process pt-3 menu-iten" style={{ backgroundColor: props.selectedTag === '' ? '#EAEAEA' : '#F4F4F4' }}>
+                            <div className="process pt-3 menu-iten" style={{ backgroundColor: props.selectedTag === '' ? '#EAEAEA' : '#F4F4F4' }}>
 
-                                <Button className="button-menu" onClick={}
-                                    color="link">
+                                <Button className="button-menu">
                                     <i className="process-icon fa fa-bookmark" />
                                     <span className="ml-1"> Todos os Processos </span>
                                 </Button>
 
-                            </div> */}
+                            </div>
 
                             <div className="tags pt-3 menu-iten">
                                 Etiquetas
                             </div>
 
-                            {/* {this.props.tags.map(tag => {
+                           {/* {props.tags.map(tag => {
                                 return (
                                     <div className="menu-iten pt-3">
                                         <div key={tag.id} className="row">
@@ -85,20 +86,20 @@ class Nav extends Component {
                             <form onSubmit={(e) => {
                                 e.preventDefault()
                                 
-                                // const addTag = {
-                                //     id: this.state.tags.length + 1,
-                                //     name: this.state.newTag,
-                                //     color: "#FFF",
-                                //     background: this.generateColor(),
-                                // }
+                                const addTag = {
+                                    id: this.state.tags.length + 1,
+                                    name: this.state.newTag,
+                                    color: "#FFF",
+                                    background: this.generateColor(),
+                                }
 
-                                // const newTags = this.state.tags.concat(addTag)
+                                const newTags = this.state.tags.concat(addTag)
 
-                                // this.setState({
-                                //     tags: newTags
-                                // })
+                                this.setState({
+                                    tags: newTags
+                                })
                                 console.log(props)
-                                //  this.props.newTag(this.state.newTag)
+                                // this.props.onNewTag(this.state.newTag)
                                 { this.setState({ newTag: this.initialState.newTag }) }
                             }}>
 
@@ -108,7 +109,7 @@ class Nav extends Component {
                                         placeholder=' Criar Etiqueta'
                                         onFocus={(e) => e.target.placeholder = ""}
                                         onBlur={(e) => e.target.placeholder = " Criar Etiqueta"}
-                                        value={this.state.newTag}
+                                        // value={this.state.newTag}
                                         onChange={(e) => {
                                             this.setState({ newTag: e.target.value })
                                         }}
@@ -131,7 +132,7 @@ class Nav extends Component {
                 </aside>
                 {/* {console.log("Nav",this.state.tags)} */}
                 {/* <PopOver tags={this.state.tags} /> */}
-                {/* <Cards newTag={this.state.tags} /> */}
+                {/* <Cards /> */}
 
             </React.Fragment>
         )
