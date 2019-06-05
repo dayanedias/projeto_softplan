@@ -7,50 +7,85 @@ import Nav from './Nav'
 export default class Cards extends Component {
 
     constructor(props) {
-        super(props)
+        super(props);
+        // debugger
 
-        this.state = {
+        this.inicialState = {
             cards: [],
             tags: [],
             tarja: [],
             usuario: [],
-            clickTag: '',
+            selectedTag: '',
         }
     }
 
-    
-    clickTag = (tag) => {
+    state = {
+        cards: dbData.cards,
+        tags: dbData.tags,
+    }
+    // includeTag(cardId) {
+
+    //     return (tagId) => {
+
+    //         const modifiedCards = this.state.cards.map((card) => {
+    //             if (card.id === cardId) {
+    //                 return {
+    //                     ...card,
+    //                     tag: [...card.tag, tagId]
+    //                 };
+    //             } else {
+    //                 return card;
+    //             }
+    //         });
+
+    //         this.setState({
+    //             cards: modifiedCards
+    //         })
+    //     }
+
+    // }
+
+    generateColor() {
+        return '#' + Math.random().toString(16).substr(-6);
+    }
+
+    newTag(tag) {
+
+        const addTag = {
+            id: this.state.tags.length + 1,
+            name: this.state.tag,
+            color: "#FFF",
+            background: this.generateColor(),
+        }
+
+        const newTags = this.state.tags.concat(addTag)
+
         this.setState({
-            clickTag: tag
+            tags: newTags
         })
-        console.log(this.state.clickTag)
     }
 
-    setTag = (id) => {
-        
-    }
+    render() {
 
-    renderCards() {
-
-        const props = this.props
+       const props = this.state
 
         console.log(props)
 
         return (
             <div>
-                {dbData.cards.map(card => {
+                {props.cards.map(card => {
                     return (
                         <div className="cards-row" key={card.id}>
                             <div className="row">
                                 <div className="column left col-md-6 divider">
                                     <div className="row">
-                                        <i className="name fa fa-plus-circle text-success mt-1" /><td className="ml-2">{card.partes.ativa.name}</td>
-                                        <i className="name fa fa-minus-circle text-danger ml-2 mt-1" /><td className="ml-2">{card.partes.passiva.name}</td>
+                                        <i className="name fa fa-plus-circle text-success mt-1" /><div className="ml-2">{card.partes.ativa.name}</div>
+                                        <i className="name fa fa-minus-circle text-danger ml-2 mt-1" /><div className="ml-2">{card.partes.passiva.name}</div>
                                     </div>
 
                                     <div className="row">
-                                        <td>{card.classe}</td>
-                                        <td className="mx-1">-</td>
+                                        <div>{card.classe}</div>
+                                        <div className="mx-1">-</div>
                                         <strong>{card.assunto}</strong>
                                     </div>
 
@@ -79,22 +114,21 @@ export default class Cards extends Component {
                                 <div className="add-tag column right col-md-3">
                                     <div className="row">
                                         <div>
-                                            <PopOver tags={dbData.tags}                                     
-                                            />
+                                            <PopOver tags={props.tags} includeTag={card.id} />
                                         </div>
 
                                         <div className="ml-2">
                                             {card.tag.map(idTag => {
 
-                                                const tag = dbData.tags.find((tag) => {
+                                                const tag = props.tags.find((tag) => {
                                                     return tag.id == idTag
                                                 })
 
                                                 return (
                                                     <div className="py-1">
-                                                    <span className="tags row" style={{ backgroundColor: tag.background, color: tag.color }} >
-                                                        {tag.name}
-                                                    </span>
+                                                        <span className="tags row" style={{ backgroundColor: tag.background, color: tag.color }} >
+                                                            {tag.name}
+                                                        </span>
                                                     </div>
                                                 )
                                             })}
@@ -107,20 +141,23 @@ export default class Cards extends Component {
                     )
                 })
                 }
+                <Nav tags={this.state.tags} />
             </div>
         )
 
 
     }
 
-    render() {
-        return (
+    // render() {
+    //     // debugger
+    //     return (
 
-                <div>
-                    {this.renderCards()}
-                {/* <Nav addTag={this.addTag}></Nav> */}
-                </div>
+    //         <div>
+    //             {this.renderCards()}
 
-        )
-    }
+    //             {/* <Nav newTag={this.newTag}></Nav> */}
+    //         </div>
+
+    //     )
+    // }
 }

@@ -4,10 +4,13 @@ import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Popover from '@material-ui/core/Popover';
+import Nav from './Nav'
+
 
 class SimplePopover extends React.Component {
     state = {
         anchorEl: null,
+        tags: this.props.tags,
     };
 
     handleClick = event => {
@@ -26,6 +29,7 @@ class SimplePopover extends React.Component {
     }
 
     render() {
+     
         const props = this.props
         const { anchorEl } = this.state;
         const open = Boolean(anchorEl);
@@ -53,13 +57,14 @@ class SimplePopover extends React.Component {
                         }}>
 
                         <div className="listTag p-3">
-                            <td className="listTag-title">Etiquetar Como:</td>
-                            {props.tags.map(tag => {
+                            <div className="listTag-title">Etiquetar Como:</div>
+                            {/* {console.log("PopOver",this.props)} */}
+                            {/* {this.state.tags.map(tag => {
                                 return (
                                     <div key={tag.id} className="tags" style={{ backgroundColor: tag.background }}>
-                                        <Button className="btnTag" onClick={() => {
+                                        <Button className="btnTag" onClick={() => {                                            
+                                            props.includeTag(tag.id)
                                             this.handleClose()
-                                            this.choseTag(tag.id)
                                         }}>
                                             <span style={{ color: tag.color }} >
                                                 {tag.name}
@@ -67,7 +72,7 @@ class SimplePopover extends React.Component {
                                         </Button>
                                     </div>
                                 )
-                            })}
+                            })} */}
                         </div>
 
                     </Popover>
