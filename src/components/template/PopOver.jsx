@@ -4,13 +4,12 @@ import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Popover from '@material-ui/core/Popover';
-import Nav from './Nav'
-
 
 class SimplePopover extends React.Component {
+
     state = {
         anchorEl: null,
-        tags: this.props.tags,
+        newCards: [],
     };
 
     handleClick = event => {
@@ -25,12 +24,42 @@ class SimplePopover extends React.Component {
         });
     };
 
-    choseTag = (id) => {
+    chooseTag = (tagId, cardId) => {
+        console.log(tagId,cardId)        
     }
 
+ popOver(e) {
+
+     if(e.tags !== undefined) {
+
+        return (
+
+        e.tags.map(tag => {
+
+            return (
+                <div key={tag.id} className="tags" style={{ backgroundColor: tag.background }}>
+                    <Button className="btnTag" onClick={() => {
+                        this.handleClose()
+                        this.choseTag(tag.id, this.props.card)
+                    }}>
+                        <span style={{ color: tag.color }} >
+                            {tag.name}
+                        </span>
+                    </Button>
+                </div>
+            )
+        })
+        )
+
+        } else {
+            // console.log("Erro!")
+        }
+    }
+    
     render() {
-     
+
         const props = this.props
+
         const { anchorEl } = this.state;
         const open = Boolean(anchorEl);
 
@@ -42,6 +71,8 @@ class SimplePopover extends React.Component {
                         onClick={this.handleClick}>
                         <p className="icon-tag"><i className="fa fa-tags" /></p>
                     </IconButton>
+                    
+                    
                     <Popover
                         id="simple-popper"
                         open={open}
@@ -57,14 +88,18 @@ class SimplePopover extends React.Component {
                         }}>
 
                         <div className="listTag p-3">
-                            <div className="listTag-title">Etiquetar Como:</div>
-                            {/* {console.log("PopOver",this.props)} */}
-                            {/* {this.state.tags.map(tag => {
+                            <span className="listTag-title">Etiquetar Como:</span>
+                            {/* {console.log("PopOver",props)} */}
+                            
+                            {/* {this.popOver(props.tags)} */}
+
+                          {props.tags.map(tag => {
+
                                 return (
                                     <div key={tag.id} className="tags" style={{ backgroundColor: tag.background }}>
-                                        <Button className="btnTag" onClick={() => {                                            
-                                            props.includeTag(tag.id)
+                                        <Button className="btnTag" onClick={() => {
                                             this.handleClose()
+                                            this.chooseTag(tag.id, this.props.card)
                                         }}>
                                             <span style={{ color: tag.color }} >
                                                 {tag.name}
@@ -72,14 +107,18 @@ class SimplePopover extends React.Component {
                                         </Button>
                                     </div>
                                 )
-                            })} */}
+                            })}
+
                         </div>
 
                     </Popover>
+
+
                 </div>
             </React.Fragment>
         );
     }
+
 }
 
 SimplePopover.propTypes = {

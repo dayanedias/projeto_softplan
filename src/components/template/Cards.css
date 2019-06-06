@@ -43,3 +43,8 @@
   .add-tag {
     text-align: left;
   }
+
+  .counter-tags {
+    text-align: right;
+    float: right;
+  }

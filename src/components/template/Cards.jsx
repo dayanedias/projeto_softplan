@@ -8,70 +8,59 @@ export default class Cards extends Component {
 
     constructor(props) {
         super(props)
-        // debugger
 
-        this.inicialState = {
-            cards: [],
-            tags: [],
-            tarja: [],
-            usuario: [],
-            selectedTag: '',
-        }
-    }
-
-    state = {
-        cards: dbData.cards,
-        tags: dbData.tags,
-    }
-    // includeTag(cardId) {
-
-    //     return (tagId) => {
-
-    //         const modifiedCards = this.state.cards.map((card) => {
-    //             if (card.id === cardId) {
-    //                 return {
-    //                     ...card,
-    //                     tag: [...card.tag, tagId]
-    //                 };
-    //             } else {
-    //                 return card;
-    //             }
-    //         });
-
-    //         this.setState({
-    //             cards: modifiedCards
-    //         })
-    //     }
-
-    // }
-
-    generateColor() {
-        return '#' + Math.random().toString(16).substr(-6);
-    }
-
-    newTag(tag) {
-
-        const addTag = {
-            id: this.state.tags.length + 1,
-            name: this.state.tag,
-            color: "#FFF",
-            background: this.generateColor(),
+        this.state = {
+            cards: dbData.cards,
+            tags: dbData.tags,
+            tarja: dbData.tarja,
+            usuario: dbData.usuario,
+            filterTag: '',
         }
 
-        const newTags = this.state.tags.concat(addTag)
+        this.clickTag = this.clickTag.bind(this)
+        this.filterTag = this.filterTag.bind(this)
+        this.addNewTag =this.addNewTag.bind(this)
+        this.setTag = this.setTag.bind(this)
+    }
 
+    filterTag = (tag) => {
         this.setState({
-            tags: newTags
+            filterTag: tag
         })
     }
 
-    renderCards() {
 
-       const props = this.state
+    addNewTag(newTag) {
+      
+        this.setState({
+            tags: newTag
+        })
+        console.log(this.state)
+    }
+
+
+    clickTag = (tag) => {
+        this.setState({
+            clickTag: tag
+        })
+    }
+
+    setTag = (card) => {
+        console.log(card)
+
+    }
+
+    loadCards() {
+        const props = this.props
+
+        const cards = this.state.cards.filter(card => {
+            if (this.state.filterTag === '') return true
+            return card.tag.includes(parseInt(this.state.filterTag))
+        })
 
         return (
             <div>
-                {this.state.cards.map(card => {
+                {cards.map(card => {
                     return (
                         <div className="cards-row" key={card.id}>
                             <div className="row">
@@ -111,14 +100,15 @@ export default class Cards extends Component {
 
                                 <div className="add-tag column right col-md-3">
                                     <div className="row">
+
                                         <div>
-                                            <PopOver tags={this.state.tags} includeTag={card.id} />
+                                            <PopOver tags={this.state.tags} card={this.state.cards} />
                                         </div>
 
                                         <div className="ml-2">
                                             {card.tag.map(idTag => {
 
-                                                const tag = props.tags.find((tag) => {
+                                                const tag = dbData.tags.find((tag) => {
                                                     return tag.id == idTag
                                                 })
 
@@ -139,27 +129,24 @@ export default class Cards extends Component {
                     )
                 })
                 }
-               
             </div>
+
         )
-
-
     }
 
     render() {
-        // debugger
         return (
-            <React.Fragment>
-                {this.renderCards()}
+            <div>
+                {this.loadCards()}
 
-                <Nav tags={this.state.tags} 
-                cards={this.state.cards} 
-                onNewTag={this.newTag}/>
+                <div className="content">
 
-                {/* <main> {this.renderCards() </main> */}
-
-            </React.Fragment>
-
+                    <Nav selectedTag={this.state.selectedTag}
+                        clickTag={this.filterTag}
+                        receivedTags={this.state.tags} 
+                        addNewTag={this.addNewTag}/>
+                </div>
+            </div>
         )
     }
 }

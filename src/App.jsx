@@ -6,16 +6,17 @@ import './App.css'
 import Nav from './components/template/Nav'
 import Search from './components/template/Search'
 import Cards from './components/template/Cards' 
-import Header from './components/template/Header'
+import Main from './components/template/Main'
 
 export default props =>
     <div className="app">
         
-        <Header title="APP">
-        </Header>
-        <Search >
-            <Cards />
-        </Search>
-        <Nav />
+        {/* <Nav /> */}
+        <Main>
+                {/* <Cards /> */}
+        </Main>
+        <Search />
+        
+        
         
     </div>

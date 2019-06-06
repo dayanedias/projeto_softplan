@@ -1,52 +1,44 @@
 import React, { Component } from 'react'
 import './Nav.css'
 import dbData from '../../data/db.json'
-import Cards from './Cards'
-import PopOver from './PopOver'
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-
+import { Button } from '@material-ui/core';
 
 class Nav extends Component {
 
-    initialState = {
-        count: 0,
-        tags: [],
-        newTag: ''
+    state = {
+        newTag: '',
+        chooseTag: 0,
+        tags: dbData.tags,
     }
 
     countTags = (idCard) => {
-        const count = this.props.cards.filter(card => {
+        const count = dbData.cards.filter(card => {
             return card.tag.includes(parseInt(idCard))
         })
         return count.length
     }
 
-    // handleSubmit(e) {
-    //     const addTag = {
+    menuClick(id) {
+        // console.log("Cliquei no menu!",id)
 
-    //         id: this.state.tags.length + 1,
-    //         name: e,
-    //         color: "#FFF",
-    //         background: "#49bdce",
-    //     }
+        this.setState({
+            chooseTag: id
+        })
+        console.log(id)
+        id.clickTag(id)
 
-    //     const newTags = this.state.tags.concat(addTag)
+    }
 
-    //     this.setState({
-    //         tags: newTags
-    //     })
-    // }
-
-    // generateColor() {
-    //     return '#' + Math.random().toString(16).substr(-6);
-    // }
+    generateColor() {
+        return '#' + Math.random().toString(16).substr(-6);
+    }
 
     render() {
 
         const props = this.props
+        // debugger
 
-        console.log("Nav",props)
+        // console.log(this.props)
 
         return (
             <React.Fragment>
@@ -54,38 +46,38 @@ class Nav extends Component {
                     <div className="menu">
                         <div className="menu-iten">
                             <strong>Processos</strong>
-                       
-                            <div className="process pt-3 menu-iten" style={{ backgroundColor: props.selectedTag === '' ? '#EAEAEA' : '#F4F4F4' }}>
 
-                                <Button className="button-menu">
+                            <div className="process pt-3 menu-iten" style = {{ backgroundColor: props.selectedTag === '' ? '#EAEAEA' : '#F4F4F4'}}>
+                                <Button onClick={() => props.clickTag('')} >
                                     <i className="process-icon fa fa-bookmark" />
                                     <span className="ml-1"> Todos os Processos </span>
                                 </Button>
-
                             </div>
 
                             <div className="tags pt-3 menu-iten">
                                 Etiquetas
-                            </div>
+                        </div>
 
-                           {props.tags.map(tag => {
+                            {this.state.tags.map(tag => {
                                 return (
-                                    <div className="menu-iten pt-3">
-                                        <div key={tag.id} className="row">
-                                            <i className="fa fa-minus pt-1 pr-2" style={{ color: tag.background }}></i>
-                                            <div> {tag.name} </div>
-                                        </div>
+                                    <div className="menu-iten pt-3" style = {{ backgroundColor: props.selectedTag === tag.id ? '#EAEAEA' : '#F4F4F4'}}>
+                                        <Button onClick={() => props.clickTag(tag.id)} >
+                                            <div key={tag.id} className="row" >
+                                                <i className="fa fa-minus pt-1 pr-2" style={{ color: tag.background }}></i>
+                                                <div> {tag.name} </div>
+                                            </div>
 
-                                        <div className="count">
-                                            {this.countTags(tag.id)}
-                                        </div>
+                                            <div className="count-tags">
+                                                {this.countTags(tag.id)}
+                                            </div>
+                                        </Button>
                                     </div>
                                 )
                             })}
 
                             <form onSubmit={(e) => {
                                 e.preventDefault()
-                                
+
                                 const addTag = {
                                     id: this.state.tags.length + 1,
                                     name: this.state.newTag,
@@ -94,13 +86,12 @@ class Nav extends Component {
                                 }
 
                                 const newTags = this.state.tags.concat(addTag)
-
                                 this.setState({
                                     tags: newTags
                                 })
-                                console.log(props)
-                                // this.props.onNewTag(this.state.newTag)
-                                { this.setState({ newTag: this.initialState.newTag }) }
+                                props.addNewTag(this.state.tags)
+
+                                this.setState({ newTag: '' })
                             }}>
 
                                 <div className="col-xs-12">
@@ -109,13 +100,14 @@ class Nav extends Component {
                                         placeholder=' Criar Etiqueta'
                                         onFocus={(e) => e.target.placeholder = ""}
                                         onBlur={(e) => e.target.placeholder = " Criar Etiqueta"}
-                                        // value={this.state.newTag}
+                                        value={this.state.newTag}
                                         onChange={(e) => {
                                             this.setState({ newTag: e.target.value })
                                         }}
                                     />
-
-                                    <i className="check fa fa-check" />
+                                    {/* <Button> */}
+                                    <i className="check fa fa-check"/>
+                                    {/* </Button> */}
 
                                 </div>
                             </form>
@@ -130,9 +122,6 @@ class Nav extends Component {
 
                     </div>
                 </aside>
-                {/* {console.log("Nav",this.state.tags)} */}
-                {/* <PopOver tags={this.state.tags} /> */}
-                {/* <Cards /> */}
 
             </React.Fragment>
         )
