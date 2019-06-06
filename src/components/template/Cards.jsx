@@ -21,6 +21,25 @@ export default class Cards extends Component {
         this.filterTag = this.filterTag.bind(this)
         this.addNewTag = this.addNewTag.bind(this)
         this.chooseTag = this.chooseTag.bind(this)
+        this.createTag = this.createTag.bind(this)
+        this.countCards = this.countCards.bind(this)
+        this.removeTag = this.removeTag.bind(this)
+    }
+
+    createTag(addTag) {
+
+        const newTag = this.state.tags.concat(addTag)
+
+        this.setState({
+            tags: newTag
+        })
+    }
+
+    countCards = (idCard) => {
+        const count = this.state.cards.filter(card => {
+            return card.tag.includes(parseInt(idCard))
+        })
+        return count.length
     }
 
     filterTag = (tag) => {
@@ -29,13 +48,26 @@ export default class Cards extends Component {
         })
     }
 
+    removeTag = i => {
+
+
+        console.log("Excluir tag")
+
+        //  this.setState(state => {
+        //    const list = state.cards.tags.filter((card, j) => i !== j);
+
+        //    return {
+        //      list,
+        //    }
+        //  })
+    }
+
 
     addNewTag(newTag) {
 
         this.setState({
             tags: newTag
         })
-        console.log(this.state)
     }
 
 
@@ -48,7 +80,7 @@ export default class Cards extends Component {
     chooseTag = (tagId, cardId) => {
 
         const updatedCards = this.state.cards.map((card) => {
-            debugger
+            //debugger
             if (cardId.id === card.id) {
                 return {
                     ...card,
@@ -60,7 +92,8 @@ export default class Cards extends Component {
         })
 
         this.setState({
-            cards: updatedCards})
+            cards: updatedCards
+        })
     }
 
     loadCards() {
@@ -116,21 +149,23 @@ export default class Cards extends Component {
 
                                         <div>
                                             {/* Chama o botão com Pop over */}
-                                            {/* {console.log(card.tag)} */}
                                             <PopOver tags={this.state.tags} card={card} chooseTag={this.chooseTag} />
                                         </div>
 
                                         <div className="ml-2">
                                             {card.tag.map(idTag => {
 
-                                                const tag = dbData.tags.find((tag) => {
+                                                const tag = this.state.tags.find((tag) => {
                                                     return tag.id == idTag
                                                 })
 
                                                 return (
-                                                    <div className="py-1">
-                                                        <span className="tags row" style={{ backgroundColor: tag.background, color: tag.color }} >
-                                                            {tag.name}
+                                                    <div className="p-1">
+                                                        <span className="tags row" style={{ backgroundColor: tag.background, color: tag.color }}>
+                                                            <div >
+                                                                {tag.name}
+                                                                <button className="btn btn-md del-tags" onClick={this.removeTag}><i className="fa fa-times ml-1"></i> </button>
+                                                            </div>
                                                         </span>
                                                     </div>
                                                 )
@@ -151,17 +186,20 @@ export default class Cards extends Component {
 
     render() {
         return (
-            <div>
-                {this.loadCards()}
+            <React.Fragment>
+                <main className="menu-area">
+                        {this.loadCards()}
+                </main>
 
-                <div>
-                    <Nav selectedTag={this.state.selectedTag}
-                        clickTag={this.filterTag}
-                        receivedTags={this.state.tags}
-                        addNewTag={this.addNewTag} 
-                        cards={this.state.cards}/>
-                </div>
-            </div>
+                <Nav selectedTag={this.state.selectedTag}
+                    clickTag={this.filterTag}
+                    receivedTags={this.state.tags}
+                    addNewTag={this.addNewTag}
+                    cards={this.state.cards}
+                    createTag={this.createTag}
+                    tags={this.state.tags}
+                    countCards={this.countCards} />
+            </React.Fragment>
         )
     }
 }

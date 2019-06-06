@@ -28,12 +28,7 @@ aside.menu-area {
     color: #808080;
 }
 
-#my-div {
-    background-color: lightgrey;
-    width: 200px;
-    height: 200px;
-    }
-    
+
     a.fill-div {
     text-align: center;
     display: block;
@@ -46,3 +41,12 @@ aside.menu-area {
     .div-teste{
         cursor: pointer;
       }
+
+      .del-tags {
+          color: #FFF
+      }
+
+.menu-text {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+    
+}

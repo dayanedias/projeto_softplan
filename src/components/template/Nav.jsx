@@ -4,18 +4,36 @@ import dbData from '../../data/db.json'
 import { Button } from '@material-ui/core';
 
 class Nav extends Component {
+    constructor(props) {
+        super(props)
 
-    state = {
-        newTag: '',
-        chooseTag: 0,
-        tags: dbData.tags,
+        this.state = {
+            newTag: '',
+            tags: dbData.tags,
+        }
+        this.menuClick = this.menuClick.bind(this)
+        this.updateState = this.updateState.bind(this)
     }
 
     countTags = (idCard) => {
+        //debugger
         const count = this.props.cards.filter(card => {
             return card.tag.includes(parseInt(idCard))
         })
         return count.length
+    }
+
+    generateColor() {
+        return '#' + Math.random().toString(16).substr(-6);
+    }
+
+    updateState(addTag) {
+
+        const newTag = this.state.tags.concat(addTag)
+        this.setState({
+            tags: newTag
+        })
+        this.setState({ newTag: '' })
     }
 
     menuClick(id) {
@@ -27,25 +45,20 @@ class Nav extends Component {
         id.clickTag(id)
 
     }
-
-    generateColor() {
-        return '#' + Math.random().toString(16).substr(-6);
-    }
-
     render() {
 
         const props = this.props
         return (
-            <React.Fragment>
                 <aside className="menu-area">
                     <nav className="menu">
                         <div className="menu-iten">
                             <strong>Processos</strong>
 
-                            <div className="process pt-3 menu-iten" style = {{ backgroundColor: props.selectedTag === '' ? '#EAEAEA' : '#F4F4F4'}}>
+                            <div className="process pt-3 menu-iten" style={{ backgroundColor: props.selectedTag === '' ? '#EAEAEA' : '#F4F4F4' }}>
                                 <Button onClick={() => props.clickTag('')} >
                                     <i className="process-icon fa fa-bookmark" />
-                                    <span className="ml-1"> Todos os Processos </span>
+                                    <div className="ml-1 menu-text">Todos os Processos</div>
+                                    <div>{props.cards.length}</div>
                                 </Button>
                             </div>
 
@@ -53,9 +66,9 @@ class Nav extends Component {
                                 Etiquetas
                         </div>
 
-                            {this.state.tags.map(tag => {
+                            {props.tags.map(tag => {
                                 return (
-                                    <div className="menu-iten pt-3" style = {{ backgroundColor: props.selectedTag === tag.id ? '#EAEAEA' : '#F4F4F4'}}>
+                                    <div className="menu-iten pt-3" style={{ backgroundColor: props.selectedTag === tag.id ? '#EAEAEA' : '#F4F4F4' }}>
                                         <Button onClick={() => props.clickTag(tag.id)} >
                                             <div key={tag.id} className="row" >
                                                 <i className="fa fa-minus pt-1 pr-2" style={{ color: tag.background }}></i>
@@ -63,6 +76,7 @@ class Nav extends Component {
                                             </div>
 
                                             <div className="count-tags">
+                                                {props.countCards(tag.id)}
                                                 {this.countTags(tag.id)}
                                             </div>
                                         </Button>
@@ -79,13 +93,8 @@ class Nav extends Component {
                                     color: "#FFF",
                                     background: this.generateColor(),
                                 }
-                                const newTags = this.state.tags.concat(addTag)
-                                this.setState({
-                                    tags: newTags
-                                })
-                                props.addNewTag(this.state.tags)
-
-                                this.setState({ newTag: '' })
+                                this.updateState(addTag)
+                                props.createTag(addTag)
                             }}>
 
                                 <div className="col-xs-12">
@@ -100,7 +109,7 @@ class Nav extends Component {
                                         }}
                                     />
                                     {/* <Button> */}
-                                    <i className="check fa fa-check"/>
+                                    <i className="check fa fa-check" />
                                     {/* </Button> */}
 
                                 </div>
@@ -116,8 +125,6 @@ class Nav extends Component {
 
                     </nav>
                 </aside>
-
-            </React.Fragment>
         )
 
     }
