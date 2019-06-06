@@ -12,14 +12,13 @@ class Nav extends Component {
     }
 
     countTags = (idCard) => {
-        const count = dbData.cards.filter(card => {
+        const count = this.props.cards.filter(card => {
             return card.tag.includes(parseInt(idCard))
         })
         return count.length
     }
 
     menuClick(id) {
-        // console.log("Cliquei no menu!",id)
 
         this.setState({
             chooseTag: id
@@ -36,14 +35,10 @@ class Nav extends Component {
     render() {
 
         const props = this.props
-        // debugger
-
-        // console.log(this.props)
-
         return (
             <React.Fragment>
                 <aside className="menu-area">
-                    <div className="menu">
+                    <nav className="menu">
                         <div className="menu-iten">
                             <strong>Processos</strong>
 
@@ -84,7 +79,6 @@ class Nav extends Component {
                                     color: "#FFF",
                                     background: this.generateColor(),
                                 }
-
                                 const newTags = this.state.tags.concat(addTag)
                                 this.setState({
                                     tags: newTags
@@ -120,7 +114,7 @@ class Nav extends Component {
                         </div>
 
 
-                    </div>
+                    </nav>
                 </aside>
 
             </React.Fragment>

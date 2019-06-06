@@ -19,8 +19,8 @@ export default class Cards extends Component {
 
         this.clickTag = this.clickTag.bind(this)
         this.filterTag = this.filterTag.bind(this)
-        this.addNewTag =this.addNewTag.bind(this)
-        this.setTag = this.setTag.bind(this)
+        this.addNewTag = this.addNewTag.bind(this)
+        this.chooseTag = this.chooseTag.bind(this)
     }
 
     filterTag = (tag) => {
@@ -31,7 +31,7 @@ export default class Cards extends Component {
 
 
     addNewTag(newTag) {
-      
+
         this.setState({
             tags: newTag
         })
@@ -45,9 +45,22 @@ export default class Cards extends Component {
         })
     }
 
-    setTag = (card) => {
-        console.log(card)
+    chooseTag = (tagId, cardId) => {
 
+        const updatedCards = this.state.cards.map((card) => {
+            debugger
+            if (cardId.id === card.id) {
+                return {
+                    ...card,
+                    tag: [...card.tag, tagId]
+                }
+            } else {
+                return card
+            }
+        })
+
+        this.setState({
+            cards: updatedCards})
     }
 
     loadCards() {
@@ -102,7 +115,9 @@ export default class Cards extends Component {
                                     <div className="row">
 
                                         <div>
-                                            <PopOver tags={this.state.tags} card={this.state.cards} />
+                                            {/* Chama o botão com Pop over */}
+                                            {/* {console.log(card.tag)} */}
+                                            <PopOver tags={this.state.tags} card={card} chooseTag={this.chooseTag} />
                                         </div>
 
                                         <div className="ml-2">
@@ -139,12 +154,12 @@ export default class Cards extends Component {
             <div>
                 {this.loadCards()}
 
-                <div className="content">
-
+                <div>
                     <Nav selectedTag={this.state.selectedTag}
                         clickTag={this.filterTag}
-                        receivedTags={this.state.tags} 
-                        addNewTag={this.addNewTag}/>
+                        receivedTags={this.state.tags}
+                        addNewTag={this.addNewTag} 
+                        cards={this.state.cards}/>
                 </div>
             </div>
         )

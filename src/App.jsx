@@ -11,11 +11,11 @@ import Main from './components/template/Main'
 export default props =>
     <div className="app">
         
-        {/* <Nav /> */}
-        <Main>
+        <Main className = "content">
                 {/* <Cards /> */}
         </Main>
         <Search />
+         {/* <Nav /> */}
         
         
         

@@ -9,7 +9,7 @@ class SimplePopover extends React.Component {
 
     state = {
         anchorEl: null,
-        newCards: [],
+        cards: this.props.card,
     };
 
     handleClick = event => {
@@ -24,38 +24,17 @@ class SimplePopover extends React.Component {
         });
     };
 
-    chooseTag = (tagId, cardId) => {
-        console.log(tagId,cardId)        
-    }
+    // chooseTag = (tagId, cardId) => {
 
- popOver(e) {
+    //     const newCardsTags = cardId.tag.push(tagId)
 
-     if(e.tags !== undefined) {
+    //     this.setState({
+    //         cards: newCardsTags
+    //     })
 
-        return (
+    //     // .addNewTag(this.state.cards)
+    // }
 
-        e.tags.map(tag => {
-
-            return (
-                <div key={tag.id} className="tags" style={{ backgroundColor: tag.background }}>
-                    <Button className="btnTag" onClick={() => {
-                        this.handleClose()
-                        this.choseTag(tag.id, this.props.card)
-                    }}>
-                        <span style={{ color: tag.color }} >
-                            {tag.name}
-                        </span>
-                    </Button>
-                </div>
-            )
-        })
-        )
-
-        } else {
-            // console.log("Erro!")
-        }
-    }
-    
     render() {
 
         const props = this.props
@@ -71,8 +50,8 @@ class SimplePopover extends React.Component {
                         onClick={this.handleClick}>
                         <p className="icon-tag"><i className="fa fa-tags" /></p>
                     </IconButton>
-                    
-                    
+
+
                     <Popover
                         id="simple-popper"
                         open={open}
@@ -90,16 +69,16 @@ class SimplePopover extends React.Component {
                         <div className="listTag p-3">
                             <span className="listTag-title">Etiquetar Como:</span>
                             {/* {console.log("PopOver",props)} */}
-                            
+
                             {/* {this.popOver(props.tags)} */}
 
-                          {props.tags.map(tag => {
+                            {props.tags.map(tag => {
 
                                 return (
                                     <div key={tag.id} className="tags" style={{ backgroundColor: tag.background }}>
                                         <Button className="btnTag" onClick={() => {
                                             this.handleClose()
-                                            this.chooseTag(tag.id, this.props.card)
+                                            props.chooseTag(tag.id, this.props.card)
                                         }}>
                                             <span style={{ color: tag.color }} >
                                                 {tag.name}

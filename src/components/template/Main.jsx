@@ -7,8 +7,7 @@ import Nav from './Nav';
 export default props =>
     <React.Fragment>
         <Header />
-            <div className="content">
+            <main className="content">
                 <Cards />
-            </div>
-
+            </main>
     </React.Fragment>
