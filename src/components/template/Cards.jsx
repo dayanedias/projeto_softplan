@@ -38,11 +38,11 @@ export default class Cards extends Component {
     countCards = (idTag) => {
 
         const count = this.state.cards.filter(cards => {
-             return cards.tag.includes(parseInt(idTag))
-         })
+            return cards.tag.includes(parseInt(idTag))
+        })
 
-         return count.length
-        
+        return count.length
+
     }
 
 
@@ -53,28 +53,7 @@ export default class Cards extends Component {
     }
 
     removeTag = (tagId) => {
-     //   debugger
-        // const removeTags = this.state.cards.tag.filter(tag => {
-        //     return tag !== tagId
-        // })          
 
-        // console.log(removeTags)
-
-    //     this.setState({
-    //         cards: [ ...removeTags]
-    //     })
-    // }
-
-
-        
-
-        //  this.setState(state => {
-        //    const list = state.cards.tags.filter((card, j) => i !== j);
-
-        //    return {
-        //      list,
-        //    }
-        //  })
     }
 
 
@@ -97,7 +76,7 @@ export default class Cards extends Component {
         const updatedCards = this.state.cards.map((card) => {
             tagId = parseInt(tagId)
             if (cardId.id === card.id) {
-                if(card.tag.includes(tagId)) return card;
+                if (card.tag.includes(tagId)) return card;
                 return {
                     ...card,
                     tag: [...card.tag, tagId]

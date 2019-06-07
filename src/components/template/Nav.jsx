@@ -11,20 +11,15 @@ class Nav extends Component {
             newTag: '',
             tags: dbData.tags,
         }
-        this.menuClick = this.menuClick.bind(this)
         this.updateState = this.updateState.bind(this)
     }
 
     countTags = (idTag) => {
-        // debugger
-
-
         const count = this.props.cards.filter(card => {
             return card.tag.includes(parseInt(idTag))
         })
         console.log(idTag, this.props.cards)
         return count.length
-
     }
 
     generateColor() {
@@ -40,15 +35,6 @@ class Nav extends Component {
         this.setState({ newTag: '' })
     }
 
-    menuClick(id) {
-
-        this.setState({
-            chooseTag: id
-        })
-        console.log(id)
-        id.clickTag(id)
-
-    }
     render() {
 
         const props = this.props
@@ -60,7 +46,7 @@ class Nav extends Component {
                     <div className="menu-iten">
                         <strong>Processos</strong>
 
-                        <div className="process pt-3 menu-iten" style={{ backgroundColor: props.chooseTag === '' ? '#EAEAEA' : '#F4F4F4' }}>
+                        <div className="process pt-3 menu-iten">
                             <i className="process-icon fa fa-bookmark" />
                             <Button onClick={() => props.clickTag('')} >
                                 Todos os Processos
@@ -84,7 +70,6 @@ class Nav extends Component {
                                         {tag.name}
                                     </Button>
                                     <span className="count-tags">
-                                        {/* {props.countCards(tag.id)} */}
                                         {this.countTags(tag.id)}
                                     </span>
 
@@ -116,9 +101,7 @@ class Nav extends Component {
                                         this.setState({ newTag: e.target.value })
                                     }}
                                 />
-                                {/* <Button> */}
                                 <i className="check fa fa-check" />
-                                {/* </Button> */}
 
                             </div>
                         </form>
