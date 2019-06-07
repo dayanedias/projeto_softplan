@@ -1,8 +1,6 @@
 import React from 'react';
 import './PopOver.css'
-import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
 import Popover from '@material-ui/core/Popover';
 
 class SimplePopover extends React.Component {
@@ -24,17 +22,6 @@ class SimplePopover extends React.Component {
         });
     };
 
-    // chooseTag = (tagId, cardId) => {
-
-    //     const newCardsTags = cardId.tag.push(tagId)
-
-    //     this.setState({
-    //         cards: newCardsTags
-    //     })
-
-    //     // .addNewTag(this.state.cards)
-    // }
-
     render() {
 
         const props = this.props
@@ -45,11 +32,11 @@ class SimplePopover extends React.Component {
         return (
             <React.Fragment>
                 <div>
-                    <IconButton
+                    <Button
                         aria-owns={open ? 'simple-popper' : undefined}
                         onClick={this.handleClick}>
-                        <p className="icon-tag"><i className="fa fa-tags" /></p>
-                    </IconButton>
+                        <p className="icon-tag"><i className="fa fa-tags"/></p>
+                    </Button>
 
 
                     <Popover
@@ -100,8 +87,8 @@ class SimplePopover extends React.Component {
 
 }
 
-SimplePopover.propTypes = {
-    classes: PropTypes.object.isRequired,
-};
+// SimplePopover.propTypes = {
+//     classes: PropTypes.object.isRequired,
+// };
 
 export default SimplePopover;

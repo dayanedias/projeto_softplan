@@ -35,12 +35,16 @@ export default class Cards extends Component {
         })
     }
 
-    countCards = (idCard) => {
-        const count = this.state.cards.filter(card => {
-            return card.tag.includes(parseInt(idCard))
-        })
-        return count.length
+    countCards = (idTag) => {
+
+        const count = this.state.cards.filter(cards => {
+             return cards.tag.includes(parseInt(idTag))
+         })
+
+         return count.length
+        
     }
+
 
     filterTag = (tag) => {
         this.setState({
@@ -48,10 +52,21 @@ export default class Cards extends Component {
         })
     }
 
-    removeTag = i => {
+    removeTag = (tagId) => {
+     //   debugger
+        // const removeTags = this.state.cards.tag.filter(tag => {
+        //     return tag !== tagId
+        // })          
+
+        // console.log(removeTags)
+
+    //     this.setState({
+    //         cards: [ ...removeTags]
+    //     })
+    // }
 
 
-        console.log("Excluir tag")
+        
 
         //  this.setState(state => {
         //    const list = state.cards.tags.filter((card, j) => i !== j);
@@ -80,8 +95,9 @@ export default class Cards extends Component {
     chooseTag = (tagId, cardId) => {
 
         const updatedCards = this.state.cards.map((card) => {
-            //debugger
+            tagId = parseInt(tagId)
             if (cardId.id === card.id) {
+                if(card.tag.includes(tagId)) return card;
                 return {
                     ...card,
                     tag: [...card.tag, tagId]
@@ -140,14 +156,15 @@ export default class Cards extends Component {
 
 
                                 <div className="folder column mid col-md-3">
-                                    <i className="fa fa-folder-open"></i>
+                                    <i className="fa fa-folder-open mr-2"></i>
                                     Abrir Pasta
                                 </div>
 
                                 <div className="add-tag column right col-md-3">
                                     <div className="row">
 
-                                        <div>
+                                        <div className="p-3">
+
                                             {/* Chama o botão com Pop over */}
                                             <PopOver tags={this.state.tags} card={card} chooseTag={this.chooseTag} />
                                         </div>
@@ -164,7 +181,7 @@ export default class Cards extends Component {
                                                         <span className="tags row" style={{ backgroundColor: tag.background, color: tag.color }}>
                                                             <div >
                                                                 {tag.name}
-                                                                <button className="btn btn-md del-tags" onClick={this.removeTag}><i className="fa fa-times ml-1"></i> </button>
+                                                                <button className="btn btn-md del-tags" onClick={this.removeTag(tag.id)}><i className="fa fa-times ml-1"></i> </button>
                                                             </div>
                                                         </span>
                                                     </div>
@@ -188,7 +205,7 @@ export default class Cards extends Component {
         return (
             <React.Fragment>
                 <main className="menu-area">
-                        {this.loadCards()}
+                    {this.loadCards()}
                 </main>
 
                 <Nav selectedTag={this.state.selectedTag}
